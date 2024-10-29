@@ -18,11 +18,9 @@ export const UserList = ({ onSelectUser }: UserListProps) => {
 
   return (
     <div className="user-list-wrapper">
-      {error ? (
-        <p>{error}</p>
-      ) : isLoading ? (
-        <p>Loading...</p>
-      ) : (
+      {error && <p>{error}</p>}
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && users.length > 0 && (
         <>
           <ul className="user-list">
             {users.map((user) => (
