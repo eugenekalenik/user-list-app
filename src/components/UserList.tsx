@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { User } from '../types';
-import { api } from '../services/api';
 import { UserListItem } from './UserListItem';
+import { useUsers } from '../hooks/useUsers';
 import './UserList.css';
 
 type UserListProps = {
@@ -9,25 +9,8 @@ type UserListProps = {
 };
 
 export const UserList = ({ onSelectUser }: UserListProps) => {
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [users, setUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const newUsers = await api.fetchUsers(page);
-        setUsers((prev) => [...prev, ...newUsers]);
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Error loading users';
-        setError(errorMessage);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadUsers();
-  }, [page]);
+  const { users, error, isLoading } = useUsers(page);
 
   const loadMore = () => {
     setPage((prev) => prev + 1);
