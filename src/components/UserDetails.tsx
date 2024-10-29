@@ -8,7 +8,7 @@ type UserDetailsProps = {
 
 export const UserDetails = ({ user, onClose }: UserDetailsProps) => {
   return (
-    <div className="user-details">
+    <div className="user-details" onClick={onClose}>
       <div className="user-card">
         <img src={user.avatar} alt={`${user.first_name} ${user.last_name}`} />
         <h2>{`${user.first_name} ${user.last_name}`}</h2>
