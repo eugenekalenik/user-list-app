@@ -18,14 +18,20 @@ export const UserList = ({ onSelectUser }: UserListProps) => {
 
   return (
     <div className="user-list-wrapper">
-      {error && <p>{error}</p>}
-      {isLoading && <p>Loading...</p>}
-      <ul className="user-list">
-        {users.map((user) => (
-          <UserListItem key={user.id} user={user} onSelect={onSelectUser} />
-        ))}
-      </ul>
-      {page < 2 && <button onClick={loadMore}>Load More</button>}
+      {error ? (
+        <p>{error}</p>
+      ) : isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <ul className="user-list">
+            {users.map((user) => (
+              <UserListItem key={user.id} user={user} onSelect={onSelectUser} />
+            ))}
+          </ul>
+          {page < 2 && <button onClick={loadMore}>Load More</button>}
+        </>
+      )}
     </div>
   );
 };
